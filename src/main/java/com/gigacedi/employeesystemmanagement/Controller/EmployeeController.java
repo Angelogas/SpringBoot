@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping
+//@Controller
 public class EmployeeController {
 
     @Autowired
@@ -19,8 +18,8 @@ public class EmployeeController {
 
     @RequestMapping ("/list")
     public String homePage(Model model) {
-        List<Employee> employeesList = employeeDAO.getEmployees();
+        List<Employee> employeesList = (List<Employee>) employeeDAO.getEmployees();
         model.addAttribute("employees",employeesList);
-        return "employee-list";
+        return "employeelist";
     }
 }

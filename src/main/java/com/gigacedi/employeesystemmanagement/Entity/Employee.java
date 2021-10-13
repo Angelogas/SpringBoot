@@ -2,18 +2,21 @@ package com.gigacedi.employeesystemmanagement.Entity;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name ="associates info")
+//@Entity
+@Table(name ="employees")
 public class Employee {
+
+    private Address address;
+    private String [] languages;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name ="First name")
+    @Column (name ="first_name")
     private String firstName;
 
-    @Column (name ="Last name")
+    @Column (name ="Last_name")
     private String lastName;
 
     @Column (name ="Email")
@@ -47,6 +50,22 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
     }
 }
 
