@@ -42,26 +42,4 @@ public class DemoRestAPIController {
         }
         return theEmployees.get(employeeId);
     }
-
-    @ExceptionHandler
-    public ResponseEntity<EmployeeErrorResponse> handleException(EmployeeNotFoundException exc) {
-
-        EmployeeErrorResponse error = new EmployeeErrorResponse();
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
-
-        return  new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<EmployeeErrorResponse> handleException(Exception exc) {
-
-        EmployeeErrorResponse error = new EmployeeErrorResponse();
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
-
-        return  new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
 }
