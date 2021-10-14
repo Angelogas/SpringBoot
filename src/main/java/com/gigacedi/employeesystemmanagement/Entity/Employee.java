@@ -3,7 +3,7 @@ package com.gigacedi.employeesystemmanagement.Entity;
 import javax.persistence.*;
 
 //@Entity
-@Table(name ="employees")
+//@Table(name ="employees")
 public class Employee {
 
     private Address address;
