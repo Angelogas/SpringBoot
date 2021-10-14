@@ -1,10 +1,9 @@
 package com.gigacedi.employeesystemmanagement.DemoRestAPI;
 
 import com.gigacedi.employeesystemmanagement.Entity.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -37,6 +36,32 @@ public class DemoRestAPIController {
     }
     @GetMapping("/employees/{employeeId}")
     public Employee getStudent (@PathVariable int employeeId) {
+
+        if (employeeId >= theEmployees.size() || employeeId < 0) {
+            throw  new EmployeeNotFoundException("Student not found - "+ employeeId);
+        }
         return theEmployees.get(employeeId);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<EmployeeErrorResponse> handleException(EmployeeNotFoundException exc) {
+
+        EmployeeErrorResponse error = new EmployeeErrorResponse();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return  new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<EmployeeErrorResponse> handleException(Exception exc) {
+
+        EmployeeErrorResponse error = new EmployeeErrorResponse();
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return  new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
